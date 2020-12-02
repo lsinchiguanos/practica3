@@ -28,9 +28,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mJsonTxtView = findViewById(R.id.lbJson);
+        getBancos();
     }
 
-    public void btnEnviar(View view) {
+    public void getBancos() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api-uat.kushkipagos.com/")
                 .addConverterFactory(GsonConverterFactory.create())
