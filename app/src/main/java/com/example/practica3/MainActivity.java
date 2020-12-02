@@ -14,6 +14,8 @@ import com.example.practica3.models.Bancos;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -36,6 +38,26 @@ public class MainActivity extends AppCompatActivity {
         IBancos bancos = retrofit.create(IBancos.class);
 
         Call<List<Bancos>> call = bancos.getBancos();
+        call.enqueue(new Callback<List<Bancos>>() {
+            @Override
+            public void onResponse(Call<List<Bancos>> call, Response<List<Bancos>> response) {
+                if (!response.isSuccessful()){
+                    mJsonTxtView.setText("Codigo: " + response.code());
+                    return;
+                }
+                List<Bancos> bancosList = response.body();
+                for (Bancos banco: bancosList){
+                    String content = "";
+                    content += banco.getName() + "\n";
+                    mJsonTxtView.append(content);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Bancos>> call, Throwable t) {
+                mJsonTxtView.setText(t.getMessage());
+            }
+        });
 
     }
 
