@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mJsonTxtView = findViewById(R.id.lbJson);
     }
 
     public void btnEnviar(View view) {
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 List<Bancos> bancosList = response.body();
                 for (Bancos banco: bancosList){
                     String content = "";
-                    content += banco.getName() + "\n";
+                    content += banco.getName() + "\n \n";
                     mJsonTxtView.append(content);
                 }
             }
